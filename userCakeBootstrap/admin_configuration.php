@@ -150,77 +150,94 @@ echo resultBlock($errors,$successes);
 
 echo "
 <div id='regbox'>
-<form name='adminConfiguration' action='".$_SERVER['PHP_SELF']."' method='post'>
-<p>
-<label>Website Name:</label>
-<input type='text' name='settings[".$settings['website_name']['id']."]' value='".$websiteName."' />
-</p>
-<p>
-<label>Website URL:</label>
-<input type='text' name='settings[".$settings['website_url']['id']."]' value='".$websiteUrl."' />
-</p>
-<p>
-<label>Email:</label>
-<input type='text' name='settings[".$settings['email']['id']."]' value='".$emailAddress."' />
-</p>
-<p>
-<label>Activation Threshold:</label>
-<input type='text' name='settings[".$settings['resend_activation_threshold']['id']."]' value='".$resend_activation_threshold."' />
-</p>
-<p>
-<label>Language:</label>
-<select name='settings[".$settings['language']['id']."]'>";
+<form class='form-horizontal' name='adminConfiguration' action='".$_SERVER['PHP_SELF']."' method='post'>
+	<div class='control-group'>
+		<label class='control-label'>Website Name:</label>
+		<div class='controls'>
+			<input type='text' name='settings[".$settings['website_name']['id']."]' value='".$websiteName."' />
+		</div>
+	</div>
+	<div class='control-group'>
+		<label class='control-label'>Website URL:</label>
+		<div class='controls'>
+			<input type='text' name='settings[".$settings['website_url']['id']."]' value='".$websiteUrl."' />
+		</div>
+	</div>
+	<div class='control-group'>
+		<label class='control-label'>Email:</label>
+		<div class='controls'>
+			<input type='text' name='settings[".$settings['email']['id']."]' value='".$emailAddress."' />
+		</div>
+	</div>
+	<div class='control-group'>
+		<label class='control-label'>Activation Threshold:</label>
+		<div class='controls'>
+			<input type='text' name='settings[".$settings['resend_activation_threshold']['id']."]' value='".$resend_activation_threshold."' />
+		</div>
+	</div>
+	<div class='control-group'>
+		<label class='control-label'>Language:</label>
+		<div class='controls'>
+			<select name='settings[".$settings['language']['id']."]'>";
 
-//Display language options
-foreach ($languages as $optLang){
-	if ($optLang == $language){
-		echo "<option value='".$optLang."' selected>$optLang</option>";
-	}
-	else {
-		echo "<option value='".$optLang."'>$optLang</option>";
-	}
-}
+			//Display language options
+			foreach ($languages as $optLang){
+				if ($optLang == $language){
+					echo "<option value='".$optLang."' selected>$optLang</option>";
+				}
+				else {
+					echo "<option value='".$optLang."'>$optLang</option>";
+				}
+			}
 
-echo "
-</select>
-</p>
-<p>
-<label>Email Activation:</label>
-<select name='settings[".$settings['activation']['id']."]'>";
+			echo "
+			</select>
+		</div>
+	</div>
+	<div class='control-group'>
+		<label class='control-label'>Email Activation:</label>
+		<div class='controls'>
+			<select name='settings[".$settings['activation']['id']."]'>";
 
-//Display email activation options
-if ($emailActivation == "true"){
-	echo "
-	<option value='true' selected>True</option>
-	<option value='false'>False</option>
-	</select>";
-}
-else {
-	echo "
-	<option value='true'>True</option>
-	<option value='false' selected>False</option>
-	</select>";
-}
+			//Display email activation options
+			if ($emailActivation == "true"){
+				echo "
+				<option value='true' selected>True</option>
+				<option value='false'>False</option>
+				</select>";
+			}
+			else {
+				echo "
+				<option value='true'>True</option>
+				<option value='false' selected>False</option>
+				</select>";
+		}
 
-echo "</p>
-<p>
-<label>Template:</label>
-<select name='settings[".$settings['template']['id']."]'>";
+		echo "</div>
+		</div>
+	<div class='control-group'>
+		<label class='control-label'>Template:</label>
+		<div class='controls'>
+			<select name='settings[".$settings['template']['id']."]'>";
 
-//Display template options
-foreach ($templates as $temp){
-	if ($temp == $template){
-		echo "<option value='".$temp."' selected>$temp</option>";
-	}
-	else {
-		echo "<option value='".$temp."'>$temp</option>";
-	}
-}
+			//Display template options
+			foreach ($templates as $temp){
+				if ($temp == $template){
+					echo "<option value='".$temp."' selected>$temp</option>";
+				}
+				else {
+					echo "<option value='".$temp."'>$temp</option>";
+				}
+			}
 
-echo "
-</select>
-</p>
-<input type='submit' class='btn btn-primary' name='Submit' value='Submit' />
+			echo "
+			</select>
+		</div>
+	</div>
+	<div class='control-group'>
+		<div class='controls'>
+			<input type='submit' class='btn btn-primary' name='Submit' value='Submit' />
+		</div>
 </form>
 </div>
 </div>

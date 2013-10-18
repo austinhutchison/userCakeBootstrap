@@ -145,7 +145,7 @@ else
         </p>    
         <p>
         <label>&nbsp;</label>
-        <input type='submit' value='Submit' class='submit' />
+        <input type='submit' class='btn btn-primary' value='Submit' class='submit' />
         </p>
         </form>";
 }

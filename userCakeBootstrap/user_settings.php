@@ -115,27 +115,36 @@ echo resultBlock($errors,$successes);
 
 echo "
 <div id='regbox'>
-<form name='updateAccount' action='".$_SERVER['PHP_SELF']."' method='post'>
-	<p>
-		<label>Password:</label>
-		<input type='password' name='password' />
-	</p>
-	<p>
-		<label>Email:</label>
-		<input type='text' name='email' value='".$loggedInUser->email."' />
-	</p>
-	<p>
-		<label>New Pass:</label>
-		<input type='password' name='passwordc' />
-	</p>
-	<p>
-		<label>Confirm Pass:</label>
-		<input type='password' name='passwordcheck' />
-	</p>
-	<p>
-		<label>&nbsp;</label>
-		<input type='submit' class='btn btn-primary' value='Update' class='submit' />
-	</p>
+<form class='form-horizontal' name='updateAccount' action='".$_SERVER['PHP_SELF']."' method='post'>
+	<div class='control-group'>
+		<label class='control-label'>Password:</label>
+		<div class ='controls'> 
+			<input type='password' name='password' />
+		</div>
+	</div>
+	<div class='control-group'>
+		<label class='control-label'>Email:</label>
+		<div class='controls'>
+			<input type='text' name='email' value='".$loggedInUser->email."' />
+		</div>
+	</div>
+	<div class='control-group'>
+		<label class='control-label'>New Pass:</label>
+		<div class='controls'>
+			<input type='password' name='passwordc' />
+		</div>
+	</div>
+	<div class='control-group'>
+		<label class='control-label'>Confirm Pass:</label>
+		<div class='controls'>
+			<input type='password' name='passwordcheck' />
+		</div>
+	</div>
+	<div class='control-group'>
+		<div class='controls'>
+			<input type='submit' class='btn btn-primary' value='Update' class='submit' />
+		</div>
+	</div>
 </form>
 </div>
 </div>

@@ -78,7 +78,7 @@ echo "
 <label>Permission Name:</label>
 <input type='text' name='newPermission' />
 </p>                                
-<input type='submit' name='Submit' value='Submit' />
+<input type='submit' class='btn btn-primary' name='Submit' value='Submit' />
 </form>
 </div>
 <div id='bottom'></div>

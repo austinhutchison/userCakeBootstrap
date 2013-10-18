@@ -123,7 +123,7 @@ echo "
 <input name='captcha' type='text'>
 </p>
 <label>&nbsp;<br>
-<input type='submit' value='Register'/>
+<input type='submit' class='btn btn-primary' value='Register'/>
 </p>
 
 </form>
