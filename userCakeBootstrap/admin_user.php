@@ -155,102 +155,152 @@ echo "
 echo resultBlock($errors,$successes);
 
 echo "
-<form name='adminUser' action='".$_SERVER['PHP_SELF']."?id=".$userId."' method='post'>
-	<table class='admin table'><tr><td>
-	<h3>User Information</h3>
-	<div id='regbox'>
-	<p>
-	<label>ID:</label>
-	".$userdetails['id']."
-	</p>
-	<p>
-	<label>Username:</label>
-	".$userdetails['user_name']."
-	</p>
-	<p>
-	<label>Display Name:</label>
-	<input type='text' name='display' value='".$userdetails['display_name']."' />
-	</p>
-	<p>
-	<label>Email:</label>
-	<input type='text' name='email' value='".$userdetails['email']."' />
-	</p>
-	<p>
-	<label>Active:</label>";
+<div class='row'>
+	<form name='adminUser' action='".$_SERVER['PHP_SELF']."?id=".$userId."' method='post'>
+			<div class='span4'>
+			<h3>Manage</h3>
+			<p>
+				<label>Display Name:</label>
+				<input type='text' name='display' value='".$userdetails['display_name']."' />
+			</p>
+			<p>
+				<label>Email:</label>
+				<input type='text' name='email' value='".$userdetails['email']."' />
+			</p>
+			<p>
+				<label>Title:</label>
+				<input type='text' name='title' value='".$userdetails['title']."' />
+			</p>
+			<div class='well'>
+				<p>Remove Permission:
+				<div class='permissions' data-toggle='buttons-checkbox'>";
 
-	//Display activation link, if account inactive
-	if ($userdetails['active'] == '1'){
-		echo "Yes";	
-	}
-	else{
-		echo "No
-		</p>
-		<p>
-		<label>Activate:</label>
-		<input type='checkbox' name='activate' id='activate' value='activate'>
-		";
-	}
+					//List of permission levels user is apart of
+					foreach ($permissionData as $v1) {
+						if(isset($userPermission[$v1['id']])){
+							echo "
+							
+								<button type='button' class='btn' name='removePermission[" . $v1['id'] . "]' value='" . $v1['id'] . "'><i class='icon-remove'></i> " . $v1['name'] . "</button>
+							";
+						}
+					}
 
-	echo "
-	</p>
-	<p>
-	<label>Title:</label>
-	<input type='text' name='title' value='".$userdetails['title']."' />
-	</p>
-	<p>
-	<label>Sign Up:</label>
-	".date("j M, Y", $userdetails['sign_up_stamp'])."
-	</p>
-	<p>
-	<label>Last Sign In:</label>";
+					//List of permission levels user is not apart of
+					echo "</div></p>
+					<p>Add Permission:
+					<div class='permissions' data-toggle='buttons-checkbox'>
+					";
+					foreach ($permissionData as $v1) {
+						if(!isset($userPermission[$v1['id']])){
+							echo "
+								<button type='button' class='btn' name='addPermission[" . $v1['id'] . "]' value='" . $v1['id'] . "'><i class='icon-plus'></i> " . $v1['name'] . "</button>
+							";
+						}
+					}
 
-	//Last sign in, interpretation
-	if ($userdetails['last_sign_in_stamp'] == '0'){
-		echo "Never";	
-	}
-	else {
-		echo date("j M, Y", $userdetails['last_sign_in_stamp']);
-	}
+					echo"
+					</div>
+				</p>";
+				?>
+				<script>
+				$(document).ready(function() {
+					$('.permissions button').click(function() {
+						if($(this).next('input').length) {
+							$(this).next('input').remove();
+						}
+						else {
+							var permission = $(this).attr('name');
+							var value = parseInt($(this).attr('value'));
+							$(this).after("<input type='hidden' name='" + permission + "' value='" + value + "'>");
+						}
+						
+						
+					});
+				});
+				</script>
+<?php 
+				echo "
 
-	echo "
-	</p>
-	<p>
-	<label>Delete:</label>
-	<input type='checkbox' name='delete[".$userdetails['id']."]' id='delete[".$userdetails['id']."]' value='".$userdetails['id']."'>
-	</p>
-	<p>
-	<label>&nbsp;</label>
-	<input type='submit' class='btn btn-primary' value='Update' class='submit' />
-	</p>
-	</div>
-	</td>
-	<td>
-	<h3>Permission Membership</h3>
-	<div id='regbox'>
-	<p>Remove Permission:";
+			</div>
+			<p>
+				<label class='checkbox'>
+				<input type='checkbox' name='delete[".$userdetails['id']."]' id='delete[".$userdetails['id']."]' value='".$userdetails['id']."'>
+				Delete</label>
+			</p>
+			<p>
+				<label>&nbsp;</label>
+				<input type='submit' class='btn btn-primary' value='Update' class='submit' />
+			</p>
+		</div>
 
-	//List of permission levels user is apart of
-	foreach ($permissionData as $v1) {
-		if(isset($userPermission[$v1['id']])){
-			echo "<br><input type='checkbox' name='removePermission[".$v1['id']."]' id='removePermission[".$v1['id']."]' value='".$v1['id']."'> ".$v1['name'];
-		}
-	}
+		<div class='span4'>
+			<h3>Detail</h3>
+			<table class='table'>
+				<tr>
+					<td>
+						ID
+					</td>
+					<td>
+						".$userdetails['id']."
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Username
+					</td>
+					<td>
+						".$userdetails['user_name']."
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Active
+					</td>";
 
-	//List of permission levels user is not apart of
-	echo "</p><p>Add Permission:";
-	foreach ($permissionData as $v1) {
-		if(!isset($userPermission[$v1['id']])){
-			echo "<br><input type='checkbox' name='addPermission[".$v1['id']."]' id='addPermission[".$v1['id']."]' value='".$v1['id']."'> ".$v1['name'];
-		}
-	}
+					//Display activation link, if account inactive
+					if ($userdetails['active'] == '1'){
+						echo "<td>Yes</td>";	
+					}
+					else{
+						echo "<td>No
+						</p>
+						<p>
+						<label>Activate:</label>
+						<input type='checkbox' name='activate' id='activate' value='activate'>
+						</td>";
+					}
 
-	echo"
-	</p>
-	</div>
-	</td>
-	</tr>
-	</table>
-</form>
+					echo "
+				</tr>
+				<tr>
+					<td>
+						Sign Up
+					</td>
+					<td>
+					".date("j M, Y", $userdetails['sign_up_stamp'])."
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Last Sign In
+					</td>
+					<td>";
+
+					//Last sign in, interpretation
+					if ($userdetails['last_sign_in_stamp'] == '0'){
+						echo "Never";	
+					}
+					else {
+						echo date("j M, Y", $userdetails['last_sign_in_stamp']);
+					}
+
+					echo "
+					</td>
+				</tr>
+			</table>
+		</div>
+	</form>
+</div><!--row-->
 </div>
 <div id='bottom'></div>
 </div>
